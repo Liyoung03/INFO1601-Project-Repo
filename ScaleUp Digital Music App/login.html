@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/loginCss.css" />
+    <title>Spotify App - Login</title>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-card">
+        <div class="logo">
+          <h1>Scale FM</h1>
+          <p>Your (Name of app) music experience</p>
+        </div>
+
+        <div id="errorMsg" class="error-message"></div>
+
+        <form id="loginForm" onsubmit="return false;">
+          <div class="input-group">
+            <label>Email or Username</label>
+            <input
+              type="text"
+              id="username"
+              placeholder="bob@mail.com or bob"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="input-group">
+            <label>Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+            />
+          </div>
+
+          <button type="submit" class="btn-login" id="loginBtn">Log In</button>
+        </form>
+
+        <div class="signup-link">
+          Don't have an account? <a id="showSignup">Sign Up</a>
+        </div>
+
+        <div class="demo-hint">
+          🔐 Demo credentials: <span>bob@mail.com</span> / <span>bobpass</span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="signupModal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      "
+    >
+      <div
+        class="login-card"
+        style="max-width: 440px; margin: 20px; position: relative"
+      >
+        <div
+          style="
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--text-secondary);
+          "
+          id="closeSignup"
+        >
+          &times;
+        </div>
+        <div class="logo">
+          <h1>Create Account</h1>
+          <p>Join Melodify today</p>
+        </div>
+
+        <div id="signupError" class="error-message"></div>
+
+        <form id="signupForm" onsubmit="return false;">
+          <div class="input-group">
+            <label>Username</label>
+            <input
+              type="text"
+              id="signupUsername"
+              placeholder="Choose a username"
+            />
+          </div>
+          <div class="input-group">
+            <label>Email</label>
+            <input type="email" id="signupEmail" placeholder="your@email.com" />
+          </div>
+          <div class="input-group">
+            <label>Password</label>
+            <input
+              type="password"
+              id="signupPassword"
+              placeholder="Create a password"
+            />
+          </div>
+          <div class="input-group">
+            <label>Account Type</label>
+            <select
+              id="signupAccountType"
+              style="
+                width: 100%;
+                padding: 14px 16px;
+                background: #1e1e1e;
+                border: 1px solid #2a2a2a;
+                border-radius: 12px;
+                color: white;
+              "
+            >
+              <option value="Free">Free</option>
+              <option value="Premium">Premium</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-login" id="signupBtn">
+            Sign Up
+          </button>
+        </form>
+
+        <div class="signup-link">
+          Already have an account? <a id="showLoginFromSignup">Log In</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
