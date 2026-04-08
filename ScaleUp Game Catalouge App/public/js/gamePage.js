@@ -60,6 +60,67 @@ async function fetchFromFreeToGame(gameName) {
   }
 }
 
+async function fetchSteamReviews(appId) {
+  const reviewsContainer = document.getElementById("steamReviewsContainer");
+
+  try {
+    const response = await fetch(`/api/reviews/${appId}`);
+    const data = await response.json();
+
+    if (data.success === 1 && data.reviews && data.reviews.length > 0) {
+      displaySteamReviews(data.reviews);
+    } else {
+      reviewsContainer.innerHTML =
+        '<p class="loading-reviews">Steam reviews not available via API for this game.</p>';
+    }
+  } catch (error) {
+    console.error("Error fetching Steam reviews:", error);
+    reviewsContainer.innerHTML =
+      '<p class="loading-reviews">Failed to load reviews</p>';
+  }
+}
+
+function displaySteamReviews(reviews) {
+  const reviewsContainer = document.getElementById("steamReviewsContainer");
+
+  if (!reviews || reviews.length === 0) {
+    reviewsContainer.innerHTML =
+      '<p class="loading-reviews">No reviews available</p>';
+    return;
+  }
+
+  reviewsContainer.innerHTML = "";
+
+  reviews.slice(0, 25).forEach((review) => {
+    const reviewCard = document.createElement("div");
+    reviewCard.className = "review-card";
+
+    const recommendation = review.voted_up ? "Recommended" : "Not Recommended";
+    const recClass = review.voted_up ? "positive" : "negative";
+
+    // Truncate long reviews
+    let reviewText = review.review;
+    if (reviewText.length > 400) {
+      reviewText = reviewText.substring(0, 400) + "...";
+    }
+
+    reviewCard.innerHTML = `
+      <div class="review-header">
+        <img class="review-avatar" src="${review.author.avatar}" alt="${review.author.name}">
+        <span class="review-author">${review.author.name}</span>
+        <span class="review-recommended ${recClass}">${recommendation}</span>
+      </div>
+      <div class="review-text">${reviewText}</div>
+      <div class="review-stats">
+        <span>${review.votes_up || 0} people found this helpful</span>
+        <span>${review.author.playtime_forever ? Math.floor(review.author.playtime_forever / 60) + " hrs" : "N/A"}</span>
+      </div>
+    `;
+
+    reviewsContainer.appendChild(reviewCard);
+  });
+}
+
 function displayGameDetails(game) {
   const gameNameElement = document.querySelector(".gameName");
   if (gameNameElement) gameNameElement.textContent = game.name;
@@ -123,6 +184,9 @@ function displayGameDetails(game) {
       "color: #aaa; font-size: 0.85rem; margin-top: 8px;";
     document.querySelector(".gameDescription")?.after(sourceNote);
   }
+  if (game.appId) {
+    fetchSteamReviews(game.appId);
+  }
 }
 
 function displayError(message) {
@@ -133,6 +197,22 @@ function displayError(message) {
   }
 }
 
+function setupRateButton() {
+  const rateButton = document.getElementById("rateButton");
+
+  if (rateButton) {
+    rateButton.addEventListener("click", () => {
+      rateButton.classList.toggle("rated");
+
+      if (rateButton.classList.contains("rated")) {
+        rateButton.innerHTML = "★ Rated";
+      } else {
+        rateButton.innerHTML = "☆ Rate";
+      }
+    });
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const gameName = getGameNameFromURL();
   if (gameName) {
@@ -140,4 +220,6 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     displayError("No game selected");
   }
+
+  setupRateButton();
 });

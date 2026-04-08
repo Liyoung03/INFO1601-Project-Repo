@@ -5,11 +5,9 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Serve all your HTML, CSS, JS files from the public folder
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 
-// ─── SEARCH STEAM ─────────────────────────────────────────────────────────────
 app.get("/api/search", async (req, res) => {
   try {
     const { search } = req.query;
@@ -28,7 +26,6 @@ app.get("/api/search", async (req, res) => {
   }
 });
 
-// ─── GET GAME DETAILS FROM STEAM ──────────────────────────────────────────────
 app.get("/api/game/:appid", async (req, res) => {
   try {
     const appid = req.params.appid;
@@ -66,8 +63,37 @@ app.get("/api/game/:appid", async (req, res) => {
   }
 });
 
-// ─── FREETOGAME FALLBACK ──────────────────────────────────────────────────────
-// Used when a game is not on Steam (e.g. Valorant)
+app.get("/api/reviews/:appId", async (req, res) => {
+  try {
+    const appId = req.params.appId;
+    const url = `https://store.steampowered.com/appreviews/${appId}?json=1&language=english&num_per_page=30&review_type=all&purchase_type=all&filter=recent`;
+
+    const response = await fetch(url, {
+      headers: { "Accept-Language": "en-US,en;q=0.9" },
+    });
+    const data = await response.json();
+
+    console.log(
+      `Steam reviews for ${appId}: success=${data.success}, count=${data.reviews?.length || 0}`,
+    );
+
+    if (data.success === 1 && data.reviews) {
+      res.json({
+        success: data.success,
+        reviews: data.reviews,
+      });
+    } else {
+      res.json({
+        success: data.success || 2,
+        reviews: [],
+      });
+    }
+  } catch (error) {
+    console.error("Steam reviews error:", error.message);
+    res.status(500).json({ error: "Failed to fetch reviews" });
+  }
+});
+
 app.get("/api/freetogame/:name", async (req, res) => {
   try {
     const gameName = req.params.name.toLowerCase();
@@ -100,7 +126,6 @@ app.get("/api/freetogame/:name", async (req, res) => {
   }
 });
 
-// ─── START SERVER ─────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
