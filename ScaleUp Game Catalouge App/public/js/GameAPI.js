@@ -98,15 +98,6 @@ function setupCarousel(trackId, prevBtnId, nextBtnId) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const gameName = getGameNameFromURL();
-  if (gameName) {
-    searchSteamGame(gameName);
-  } else {
-    displayError("No game selected");
-  }
-});
-
 // Initialize
 // Initialize everything
 fetchNewReleases();
