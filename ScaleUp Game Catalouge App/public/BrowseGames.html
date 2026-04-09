@@ -14,7 +14,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/indexCss.css" />
-    <link rel="stylesheet" href="css/gameDetail.css" />
+    <link rel="stylesheet" href="css/browseGames.css" />
     <title>Skal Reviews</title>
   </head>
   <body>
@@ -23,7 +23,7 @@
 
       <div class="navLinks">
         <a href="index.html" class="Logo">Skal Reviews</a>
-        <a href="BrowseGames.html">Browse Games</a>
+        <a href="#">Browse Games</a>
         <a href="#">Profile</a>
         <a href="#">FAQ</a>
       </div>
@@ -55,31 +55,41 @@
       </div>
     </div>
 
-    <main class="mainSection">
-      <div class="gameLayout">
-        <div class="imageColumn">
-          <img class="mainImage" src="" alt="Game screenshot" />
-          <div class="imageGallery"></div>
-        </div>
-        <div class="detailsColumn">
-          <div class="actionButtons">
-            <button id="rateButton" class="rate-btn">☆ Rate</button>
-            <button id="favoriteButton" class="favorite-btn">♡ Favorite</button>
-          </div>
+    <section class="hero">
+      <p class="heroLogo">Broswe All Games</p>
+    </section>
 
-          <div class="platforms">Loading platforms...</div>
-          <p class="releaseDate">Loading release date...</p>
-          <p class="gameGenres">Loading genres...</p>
-          <p class="gameShortDescription">Loading description...</p>
+    <main class="mainSection">
+      <div class="filterSection">
+        <div class="filtersName">
+          <p>Platform</p>
+          <p>Timeframe</p>
+          <p>Genre</p>
+          <p>Reset</p>
+        </div>
+        <div class="filterOptions">
+          <select name="platform" id="platformSection"></select>
+          <select name="timeframe" id="timeframeSection"></select>
+          <select name="genre" id="genreSection"></select>
+          <button id="resetFilters" class="reset-btn">Reset Filters</button>
         </div>
       </div>
 
-      <div class="gameDescription">Loading description...</div>
+      <div class="gameListContainer">
+        <div class="gameListHeader">
+          <span>No.</span>
+          <span>Game</span>
+          <span>Platform</span>
+          <span>Genre</span>
+          <span>Release Date</span>
+        </div>
 
-      <div class="steam-reviews-section">
-        <h3 class="reviews-header">Steam Reviews</h3>
-        <div id="steamReviewsContainer" class="reviews-container">
-          <p class="loading-reviews">Loading reviews...</p>
+        <div id="gameListContent" class="gameListContent">
+          <!-- Games will be inserted here -->
+        </div>
+
+        <div class="pagination" id="pagination">
+          <!-- Pagination buttons will go here -->
         </div>
       </div>
     </main>
@@ -98,7 +108,7 @@
       </div>
     </footer>
     <script src="js/index.js"></script>
-    <script src="js/gamePage.js"></script>
     <script src="js/search.js"></script>
+    <script src="js/browse.js"></script>
   </body>
 </html>

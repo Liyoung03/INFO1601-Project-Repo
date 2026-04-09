@@ -1,0 +1,113 @@
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 95vw;
+  margin: auto;
+}
+
+.filtersName {
+  display: flex;
+  font-size: 1.2em;
+  justify-content: space-around;
+}
+
+.filterOptions {
+  display: flex;
+  justify-content: space-around;
+}
+
+/*GAME LIST CONTAINER*/
+
+.gameListContainer {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.gameListHeader {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
+  padding: 12px 16px;
+  background: #1a1a1a;
+  border-bottom: 2px solid #333;
+  font-weight: bold;
+  color: white;
+}
+
+.gameListContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.gameRow {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
+  padding: 12px 16px;
+  border-bottom: 1px solid #333;
+  align-items: center;
+  color: white;
+}
+
+.gameRow:hover {
+  background: rgba(109, 23, 153, 0.1);
+}
+
+.gameInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gameThumbnail {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.gameName {
+  cursor: pointer;
+  color: rgb(109, 23, 153);
+  text-decoration: underline;
+}
+
+.gameName:hover {
+  color: rgb(139, 53, 183);
+}
+
+.gameRow .gameName {
+  cursor: pointer;
+  color: rgb(109, 23, 153);
+  text-decoration: underline;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 16px;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: rgb(109, 23, 153);
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  color: white;
+}
